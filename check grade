@@ -1,0 +1,100 @@
+package grade;
+import java.util.Scanner;
+public class Grader {
+    private int quiz1;
+    private int quiz2;
+    private int quiz3;
+    private int midterm;
+    private int finalexam;
+    private double running;
+    Scanner gquiz1 = new Scanner(System.in);
+    Scanner gquiz2 = new Scanner(System.in);
+    Scanner gquiz3 = new Scanner(System.in);
+    Scanner gmid = new Scanner(System.in);
+    Scanner gfinal = new Scanner(System.in);
+    
+    public String given(){
+        if(running > 90){
+            return "A";
+        }
+        else if(running > 80){
+            return "B";
+        }
+        else if(running > 70){
+            return "C";
+        }
+        else if(running > 60){
+            return "D";
+        }
+        else{
+            return "F";
+        }
+    }
+    private void runF(){
+        running += (finalexam * 0.4);
+        running += (midterm * 0.35);
+        running += ((quiz1+quiz2+quiz3) / 3 * 2.5);
+    }
+    private int quizcheck(int a){
+        if(a >= 0 && a <= 10){
+            return a;
+        }
+        else if(a > 10)
+            return 10;
+        else
+            return 0;
+    }
+    private int examcheck(int a){
+        if(a >= 0 && a <= 100){
+            return a;
+        }
+        else if(a > 100){
+            return 100;
+        }
+        else
+            return 0;
+    }
+    public String Result(){
+        return "Student grade is " + running
+                +"\n" + "Student got " + given();
+    }
+    public String quizzer(int a){
+        return "Enter Quiz" + a +" grade(0-10): ";
+    }
+    public String exammer(int a){
+        if(a == 1){
+            return "Enter MidTerm grade(0-100): ";
+        }
+        else
+            return "Enter FinalExam grade(0-100): ";
+    }
+    public void run(){
+        System.out.print(quizzer(1));
+        quiz1 = quizcheck(gquiz1.nextInt());
+        System.out.print(quizzer(2));
+        quiz2 = quizcheck(gquiz2.nextInt());
+        System.out.print(quizzer(3));
+        quiz3 = quizcheck(gquiz3.nextInt());
+        System.out.print(exammer(1));
+        midterm = examcheck(gmid.nextInt());
+        System.out.print(exammer(2));
+        finalexam = examcheck(gfinal.nextInt());
+        runF();
+        System.out.println("\n" + Result());
+        
+    }
+}
+
+
+
+
+
+
+package grade;
+public class Grade {
+    public static void main(String[] args) {
+        Grader grading = new Grader();
+        grading.run();
+    }
+    
+}
